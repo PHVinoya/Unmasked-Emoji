@@ -1,5 +1,5 @@
 <div align="center">
-# [🎭 Unmasked Emoji](https://phvinoya.github.io/Unmasked-Emoji/)
+# 🎭 Unmasked Emoji
 
 A playful emoji memory-matching game — flip cards, find pairs, and watch each character's mask pop off with a fun little animation when you get it right.
 
