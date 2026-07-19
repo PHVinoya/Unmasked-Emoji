@@ -62,6 +62,7 @@ const checkMatch = (card) => {
 		setMatchedProps(selectedCard);
 		matchCount++;
 		comboCount++;
+		playSfx("correct");
 
 		if (comboCount > 1) {
 			displayMarquee(`${comboCount}×!`, true);
@@ -75,6 +76,7 @@ const checkMatch = (card) => {
 		}, 500);
 	} else {
 		comboCount = 0;
+		playSfx("wrong");
 
 		setTimeout(() => {
 			toggleCardSelected(card);
@@ -100,6 +102,8 @@ const checkComplete = () => {
 		return;
 	}
 
+	playSfx("complete");
+	stopBgMusic();
 	displayMarquee("Unmasked Complete!", false);
 
 	setTimeout(() => {
@@ -149,6 +153,7 @@ const setupGame = () => {
 
 cards.forEach((card) =>
 	card.addEventListener("click", () => {
+		playSfx("flip");
 		toggleCardSelected(card);
 
 		if (!selectedCard) {
@@ -174,6 +179,67 @@ marquee.addEventListener("animationend", (e) => {
 });
 
 document.querySelector("#reset-game").addEventListener("click", () => {
+	playSfx("shuffle");
 	resetGame();
 	setupGame();
 });
+
+muteBtn.addEventListener("click", () => {
+	const muted = toggleMute();
+	muteBtn.textContent = muted ? "🔇" : "🔊";
+	muteBtn.setAttribute("aria-pressed", muted);
+});
+
+// Browsers block autoplay until a user gesture — start bg music on first interaction
+document.addEventListener(
+	"click",
+	() => {
+		startBgMusic();
+	},
+	{ once: true }
+);
+
+
+let isMuted = false;
+
+const sfx = {
+	flip: new Audio("./assets/flip.mp3"),
+	wrong: new Audio("./assets/wrong.mp3"),
+	correct: new Audio("./assets/correct.mp3"),
+	shuffle: new Audio("./assets/shuffle.mp3"),
+	complete: new Audio("./assets/complete.mp3")
+};
+
+const bgMusic = new Audio("./assets/bgmusic.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 1;
+
+const playSfx = (name) => {
+	if (isMuted) return;
+	const sound = sfx[name];
+	sound.currentTime = 0;
+	sound.play().catch(() => {}); // swallow autoplay-block errors
+};
+
+const startBgMusic = () => {
+	if (isMuted) return;
+	bgMusic.play().catch(() => {});
+};
+
+const stopBgMusic = () => {
+	bgMusic.pause();
+	bgMusic.currentTime = 0;
+};
+
+const toggleMute = () => {
+	isMuted = !isMuted;
+	if (isMuted) {
+		stopBgMusic();
+	} else {
+		startBgMusic();
+	}
+	return isMuted;
+};
+
+
+setupGame();
