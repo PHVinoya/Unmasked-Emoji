@@ -3,9 +3,9 @@
 
 A playful emoji memory-matching game — flip cards, find pairs, and watch each character's mask pop off with a fun little animation when you get it right.
 
-[![Unmasked Emoji gameplay preview](./assets/unmaskemoji.gif)](https://phvinoya.github.io/Unmasked-Emoji/)
+[![Unmasked Emoji gameplay preview](./assets/unmaskemoji.gif)](https://unmasked-emoji.vercel.app/)
 
-**[▶ Play the live demo](https://phvinoya.github.io/Unmasked-Emoji/)**
+**[▶ Play the live demo](https://unmasked-emoji.vercel.app/)**
 </div>
 
 ## About
