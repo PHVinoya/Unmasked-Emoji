@@ -104,7 +104,7 @@ const checkComplete = () => {
 
 	playSfx("complete");
 	stopBgMusic();
-	displayMarquee("Unmasked Complete!", false);
+	displayMarquee("Unmasked!", false);
 
 	setTimeout(() => {
 		board.classList.add(cls.completed);
